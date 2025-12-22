@@ -1,0 +1,11 @@
+
+
+import 'package:dio/dio.dart';
+
+class DioClient {
+  static Dio create() {
+    return Dio(BaseOptions(
+      baseUrl: 'https://dummyjson.com',
+    ));
+  }
+}
