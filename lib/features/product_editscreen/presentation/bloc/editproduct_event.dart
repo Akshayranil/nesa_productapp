@@ -13,3 +13,5 @@ class UpdateProductEvent extends EditProductEvent {
     required this.description,
   });
 }
+
+

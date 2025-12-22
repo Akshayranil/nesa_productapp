@@ -36,6 +36,7 @@ class _EditProductPageState extends State<EditProductPage> {
       body: BlocConsumer<EditProductBloc, EditProductState>(
         listener: (context, state) {
           if (state is EditProductSuccess) {
+            
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Product updated successfully")),
             );

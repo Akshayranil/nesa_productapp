@@ -7,19 +7,22 @@ class ProductUpdateRepositoryImpl implements UpdateProductrepository {
 
   ProductUpdateRepositoryImpl(this.remoteDataSource);
 
-  // Future<List<Product>> getProducts() {
-  //   return remoteDataSource.getProducts();
-  // }
-  
-  @override
   Future<Product> getProductById(int id) {
-    // TODO: implement getProductById
-    throw UnimplementedError();
+    return remoteDataSource.getProductById(id);
   }
-  
+
   @override
-  Future<void> updateProduct({required int id, required String title, required double price, required String description}) {
-    // TODO: implement updateProduct
-    throw UnimplementedError();
+  Future<void> updateProduct({
+    required int id,
+    required String title,
+    required double price,
+    required String description,
+  }) {
+    return remoteDataSource.updateProduct(
+      id: id,
+      title: title,
+      price: price,
+      description: description,
+    );
   }
 }

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nesa_machinetask/core/network/dio_client.dart';
+import 'package:nesa_machinetask/features/product_editscreen/data/datasource/product_updatedatasource.dart';
+import 'package:nesa_machinetask/features/product_editscreen/data/repository/product_updaterepositoryimp.dart';
+import 'package:nesa_machinetask/features/product_editscreen/domain/usecase/update_productusecase.dart';
+import 'package:nesa_machinetask/features/product_editscreen/presentation/bloc/editproduct_bloc.dart';
 import 'package:nesa_machinetask/features/product_screen/data/product_datasource/product_datasource.dart';
 import 'package:nesa_machinetask/features/product_screen/data/repository/product_repositoryimp.dart';
 import 'package:nesa_machinetask/features/product_screen/domain/usecases/product_usecase.dart';
@@ -16,17 +20,24 @@ void main() {
   final remote = ProductRemoteDataSource(dio);
   final repo = ProductRepositoryImpl(remote);
   final getProducts = GetProducts(repo);
-  
+
   final remotedetail = ProductDetailsdatasource(dio);
   final remoterepro = ProductDetailrepositoryImp(remotedetail);
-
   final getProductsDetails = GetProductDetailsUseCase(remoterepro);
+
+  final remoteedit = ProductUpdateRemoteDataSource(dio);
+  final remotereproedit = ProductUpdateRepositoryImpl(remoteedit);
+  final productupdate = UpdateProductUseCase(remotereproedit);
+
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider<ProductBloc>(create: (_) => ProductBloc(getProducts)),
         BlocProvider<ProductDetailsBloc>(
           create: (_) => ProductDetailsBloc(getProductsDetails),
+        ),
+        BlocProvider<EditProductBloc>(
+          create: (_) => EditProductBloc(productupdate),
         ),
       ],
       child: MyApp(),
