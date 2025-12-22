@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nesa_machinetask/features/product_editscreen/presentation/ui/product_editscreen.dart';
 import 'package:nesa_machinetask/features/products_detailed/presentation/bloc/productdetails_bloc.dart';
 import 'package:nesa_machinetask/features/products_detailed/presentation/bloc/productdetails_event.dart';
 import 'package:nesa_machinetask/features/products_detailed/presentation/bloc/productdetails_state.dart';
@@ -11,9 +12,7 @@ class ProductDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context
-        .read<ProductDetailsBloc>()
-        .add(FetchProductDetails(productId));
+    context.read<ProductDetailsBloc>().add(FetchProductDetails(productId));
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -44,14 +43,20 @@ class ProductDetailsPage extends StatelessWidget {
                           children: [
                             IconButton(
                               icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (_) =>
-                                //         EditProductPage(product: product),
-                                //   ),
-                                // );
+                              onPressed: () async {
+                                final result = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        EditProductPage(product: product),
+                                  ),
+                                );
+
+                                if (result == true) {
+                                  context.read<ProductDetailsBloc>().add(
+                                    FetchProductDetails(product.id),
+                                  );
+                                }
                               },
                             ),
                             IconButton(
@@ -113,7 +118,9 @@ class ProductDetailsPage extends StatelessWidget {
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 4),
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.pink.shade100,
                             borderRadius: BorderRadius.circular(12),
@@ -157,10 +164,7 @@ class ProductDetailsPage extends StatelessWidget {
                     // 🔹 Description
                     Text(
                       product.description,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        height: 1.5,
-                      ),
+                      style: const TextStyle(color: Colors.grey, height: 1.5),
                     ),
                   ],
                 ),
@@ -178,9 +182,7 @@ class ProductDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: const BoxDecoration(
           color: Colors.deepPurple,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(24),
-          ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: const Center(
           child: Text(
