@@ -6,17 +6,32 @@ import 'package:nesa_machinetask/features/product_screen/data/repository/product
 import 'package:nesa_machinetask/features/product_screen/domain/usecases/product_usecase.dart';
 import 'package:nesa_machinetask/features/product_screen/presentation/bloc/product_bloc.dart';
 import 'package:nesa_machinetask/features/product_screen/presentation/ui/product_screen.dart';
+import 'package:nesa_machinetask/features/products_detailed/data/datasource/product_detailsdatasource.dart';
+import 'package:nesa_machinetask/features/products_detailed/data/repository/product_detailrepositoryimp.dart';
+import 'package:nesa_machinetask/features/products_detailed/domain/usecase/product_detailusecase.dart';
+import 'package:nesa_machinetask/features/products_detailed/presentation/bloc/productdetails_bloc.dart';
 
 void main() {
-    final dio = DioClient.create();
+  final dio = DioClient.create();
   final remote = ProductRemoteDataSource(dio);
   final repo = ProductRepositoryImpl(remote);
   final getProducts = GetProducts(repo);
-  runApp( MultiBlocProvider(
-    providers: [
-      BlocProvider<ProductBloc>(create: (_)=>ProductBloc(getProducts)),
-    ],
-    child: MyApp()));
+  
+  final remotedetail = ProductDetailsdatasource(dio);
+  final remoterepro = ProductDetailrepositoryImp(remotedetail);
+
+  final getProductsDetails = GetProductDetailsUseCase(remoterepro);
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<ProductBloc>(create: (_) => ProductBloc(getProducts)),
+        BlocProvider<ProductDetailsBloc>(
+          create: (_) => ProductDetailsBloc(getProductsDetails),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,13 +43,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-      ),
+      theme: ThemeData(),
       home: ProductListPage(),
     );
   }
 }
-
-
-
-

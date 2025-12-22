@@ -4,4 +4,5 @@ import 'package:nesa_machinetask/features/product_screen/domain/entity/product_e
 
 abstract class ProductRepository {
   Future<List<Product>> getProducts();
+  Future<Product> getProductById(int id);
 }

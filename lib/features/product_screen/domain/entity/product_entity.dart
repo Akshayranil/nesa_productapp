@@ -5,6 +5,8 @@ class Product {
   final double price;
   final String category;
   final String thumbnail;
+  final double rating;
+  final double stock;
 
   Product({
     required this.id,
@@ -13,5 +15,7 @@ class Product {
     required this.price,
     required this.category,
     required this.thumbnail,
+    required this.rating,
+    required this.stock
   });
 }

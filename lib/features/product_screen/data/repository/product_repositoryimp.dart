@@ -13,4 +13,10 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<List<Product>> getProducts() {
     return remoteDataSource.getProducts();
   }
+  
+  @override
+  Future<Product> getProductById(int id) {
+    // TODO: implement getProductById
+    throw UnimplementedError();
+  }
 }

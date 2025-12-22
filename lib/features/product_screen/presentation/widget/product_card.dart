@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nesa_machinetask/features/product_screen/domain/entity/product_entity.dart';
-
+import 'package:nesa_machinetask/features/products_detailed/presentation/ui/screen_productdetails.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -15,23 +15,33 @@ class ProductCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFF7F7F7),
         borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8),
-        ],
+        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 8)],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
-              ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
-                child: Image.network(
-                  product.thumbnail,
-                  height: 140,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ProductDetailsPage(productId: product.id),
+                    ),
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
+                  child: Image.network(
+                    product.thumbnail,
+                    height: 140,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const Positioned(
@@ -46,8 +56,11 @@ class ProductCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(product.title,
-                    maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text(
+                  product.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 const SizedBox(height: 4),
                 Text(
                   product.description,
@@ -59,7 +72,9 @@ class ProductCard extends StatelessWidget {
                 Text(
                   '\$ ${product.price}',
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),

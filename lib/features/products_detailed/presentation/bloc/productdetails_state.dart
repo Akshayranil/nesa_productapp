@@ -1,6 +1,12 @@
-part of 'productdetails_bloc.dart';
+import 'package:nesa_machinetask/features/product_screen/domain/entity/product_entity.dart';
 
-@immutable
-sealed class ProductdetailsState {}
+abstract class ProductDetailsState {}
 
-final class ProductdetailsInitial extends ProductdetailsState {}
+class ProductDetailsLoading extends ProductDetailsState {}
+
+class ProductDetailsLoaded extends ProductDetailsState {
+  final Product product;
+  ProductDetailsLoaded(this.product);
+}
+
+class ProductDetailsError extends ProductDetailsState {}
