@@ -49,7 +49,7 @@ class ProductDetailsPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 IconButton(
-                                  icon: const Icon(Icons.arrow_back),
+                                  icon: const Icon(Icons.chevron_left_rounded),
                                   onPressed: () => Navigator.pop(context),
                                 ),
                                 Row(
@@ -130,7 +130,7 @@ class ProductDetailsPage extends StatelessWidget {
                                 child: const Text(
                                   "Best Seller",
                                   style: TextStyle(
-                                    color: Colors.pink,
+                                    color: Colors.white,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -255,13 +255,24 @@ class ProductDetailsPage extends StatelessWidget {
   }
 
   Widget _tabItem(String text, bool selected) {
-    return Text(
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    decoration: BoxDecoration(
+      color: selected ? Colors.blue.shade50 : Colors.transparent, // slight color if selected
+      borderRadius: BorderRadius.circular(20), // curved border
+      border: selected 
+          ? Border.all(color: Colors.blue, width: 1) // optional border
+          : null,
+    ),
+    child: Text(
       text,
       style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.bold,
-        color: selected ? Colors.black : Colors.grey,
+        color: selected ? Colors.blue : Colors.grey, // change text color if selected
       ),
-    );
-  }
+    ),
+  );
+}
+
 }

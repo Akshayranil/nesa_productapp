@@ -18,7 +18,7 @@ class ProductListPage extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: Icon(Icons.menu),
         actions: [
-          Icon(Icons.shopping_cart)
+          Icon(Icons.shopping_cart_outlined)
         ],
       ),
       backgroundColor: Colors.white,
